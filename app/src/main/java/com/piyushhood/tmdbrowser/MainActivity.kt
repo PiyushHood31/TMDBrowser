@@ -5,17 +5,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 import com.piyushhood.tmdbrowser.data.repository.PreferencesRepositoryImpl
+import com.piyushhood.tmdbrowser.domain.model.AppLanguage
 import com.piyushhood.tmdbrowser.domain.model.ThemeMode
 import com.piyushhood.tmdbrowser.presentation.navigation.AppNavGraph
 import com.piyushhood.tmdbrowser.presentation.scaffold.AdaptiveScaffold
 import com.piyushhood.tmdbrowser.presentation.state.UiState
 import com.piyushhood.tmdbrowser.presentation.theme.TMDBrowserTheme
+import com.piyushhood.tmdbrowser.presentation.util.updateLocale
 import com.piyushhood.tmdbrowser.presentation.viewmodel.PreferencesViewModel
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +33,16 @@ class MainActivity : ComponentActivity() {
             val preferencesViewModel = remember {
                 PreferencesViewModel(preferencesRepository)
             }
+
+            val languageState by preferencesViewModel
+                .appLanguageState
+                .collectAsState()
+
+            val appLanguage = when(languageState){
+                is UiState.Success ->
+                    (languageState as UiState.Success<AppLanguage>).data
+                else -> AppLanguage.SYSTEM
+            }
             val themeState by preferencesViewModel
                 .themeModeState
                 .collectAsState()
@@ -37,18 +50,27 @@ class MainActivity : ComponentActivity() {
                 is UiState.Success ->(themeState as UiState.Success<ThemeMode>).data
                 else -> ThemeMode.SYSTEM
             }
+            val localizeContext = remember (appLanguage){
+                context.updateLocale(appLanguage)
+            }
+
             val windowSizeClass = calculateWindowSizeClass(this)
-            TMDBrowserTheme(themeMode = themeMode) {
-                AdaptiveScaffold(
-                    windowSizeClass = windowSizeClass
-                ) {modifier ->
+            CompositionLocalProvider(
+                LocalContext provides localizeContext
+            ) {
+                TMDBrowserTheme(themeMode = themeMode) {
+                    AdaptiveScaffold(
+                        windowSizeClass = windowSizeClass
+                    ) { modifier ->
 
-                    AppNavGraph(navController = rememberNavController(),
-                        preferencesViewModel = preferencesViewModel,
-                        modifier = modifier
-                    )
+                        AppNavGraph(
+                            navController = rememberNavController(),
+                            preferencesViewModel = preferencesViewModel,
+                            modifier = modifier
+                        )
+                    }
+
                 }
-
             }
         }
     }
