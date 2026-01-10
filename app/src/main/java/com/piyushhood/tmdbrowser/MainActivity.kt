@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 ) {modifier ->
 
                     AppNavGraph(navController = rememberNavController(),
+                        preferencesViewModel = preferencesViewModel,
                         modifier = modifier
                     )
                 }

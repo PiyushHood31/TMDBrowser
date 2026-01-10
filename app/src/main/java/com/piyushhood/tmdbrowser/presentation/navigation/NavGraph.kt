@@ -9,15 +9,17 @@ import com.piyushhood.tmdbrowser.presentation.screen.HomeScreen
 import com.piyushhood.tmdbrowser.presentation.screen.MovieDetailScreen
 import com.piyushhood.tmdbrowser.presentation.screen.SearchScreen
 import com.piyushhood.tmdbrowser.presentation.screen.SettingsScreen
+import com.piyushhood.tmdbrowser.presentation.viewmodel.PreferencesViewModel
 
 @Composable
 fun AppNavGraph(
     navController : NavHostController,
+    preferencesViewModel : PreferencesViewModel,
     modifier: Modifier
 ){
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Settings.route
     ){
         composable(Screen.Home.route){
             HomeScreen(
@@ -36,7 +38,9 @@ fun AppNavGraph(
         }
 
         composable(Screen.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                preferencesViewModel = preferencesViewModel
+            )
         }
     }
 }
