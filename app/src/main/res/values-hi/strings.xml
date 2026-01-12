@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">टीएमडी ब्राउज़र</string>
+
+    <!-- Settings -->
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="theme_title">थीम</string>
+    <string name="language_title">भाषा</string>
+
+    <string name="theme_light">हल्की</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="theme_system">सिस्टम डिफ़ॉल्ट</string>
+
+    <string name="language_english">अंग्रेज़ी</string>
+    <string name="language_hindi">हिंदी</string>
+    <string name="language_system">सिस्टम डिफ़ॉल्ट</string>
+</resources>

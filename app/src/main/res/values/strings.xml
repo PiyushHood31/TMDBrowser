@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TMDBrowser</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Theme</string>
+    <string name="language_title">Language</string>
+
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System Default</string>
+
+    <string name="language_english">English</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_system">System Default</string>
 </resources>
