@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.piyushhood.tmdbrowser.presentation.navigation.BottomNavBar
+import com.piyushhood.tmdbrowser.presentation.navigation.NavigationRailBar
 import com.piyushhood.tmdbrowser.presentation.navigation.NavigationType
 import com.piyushhood.tmdbrowser.presentation.navigation.decideNavigationType
 
@@ -37,10 +38,7 @@ fun AdaptiveScaffold(
 
         NavigationType.NAVIGATION_RAIL -> {
             Row {
-                NavigationRail {
-                    Text("Rail")
-                }
-
+                NavigationRailBar(navController)
                 content(Modifier)
             }
         }
