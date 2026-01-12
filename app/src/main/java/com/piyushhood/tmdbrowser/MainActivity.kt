@@ -54,17 +54,20 @@ class MainActivity : ComponentActivity() {
                 context.updateLocale(appLanguage)
             }
 
+            val navController = rememberNavController()
+
             val windowSizeClass = calculateWindowSizeClass(this)
             CompositionLocalProvider(
                 LocalContext provides localizeContext
             ) {
                 TMDBrowserTheme(themeMode = themeMode) {
                     AdaptiveScaffold(
-                        windowSizeClass = windowSizeClass
+                        windowSizeClass = windowSizeClass,
+                        navController = navController
                     ) { modifier ->
 
                         AppNavGraph(
-                            navController = rememberNavController(),
+                            navController = navController,
                             preferencesViewModel = preferencesViewModel,
                             modifier = modifier
                         )
