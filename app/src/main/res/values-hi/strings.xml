@@ -13,4 +13,10 @@
     <string name="language_english">अंग्रेज़ी</string>
     <string name="language_hindi">हिंदी</string>
     <string name="language_system">सिस्टम डिफ़ॉल्ट</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_search">खोजें</string>
+    <string name="nav_settings">सेटिंग्स</string>
+
 </resources>
