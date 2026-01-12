@@ -21,7 +21,6 @@ fun NavigationRailBar(
     val currentRoute = backStackEntry.value?.destination?.route
 
     NavigationRail {
-        Spacer(modifier = Modifier.weight(1f))
         topLevelDestinations.forEach { destination ->
             val selected = currentRoute == destination.route
 
@@ -55,8 +54,6 @@ fun NavigationRailBar(
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             )
-
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
