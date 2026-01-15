@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -26,6 +28,10 @@ android {
         println("TMDB_API_KEY from Gradle = ${project.findProperty("TMDB_API_KEY")}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    kapt{
+        correctErrorTypes = true
     }
 
     buildTypes {
@@ -76,5 +82,9 @@ dependencies {
     implementation(libs.retrofit.kotlinx.serialization)
     implementation(libs.okhttp.logging)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
 }
