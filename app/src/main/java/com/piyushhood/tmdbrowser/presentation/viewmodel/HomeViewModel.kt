@@ -5,12 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.piyushhood.tmdbrowser.domain.model.Movie
 import com.piyushhood.tmdbrowser.domain.usecase.GetPopularMoviesUseCase
 import com.piyushhood.tmdbrowser.presentation.state.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 )  : ViewModel(){
     private val _uiState = MutableStateFlow<UiState<List<Movie>>>(UiState.Loading)

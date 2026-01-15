@@ -6,11 +6,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.piyushhood.tmdbrowser.domain.model.Movie
 import com.piyushhood.tmdbrowser.domain.usecase.GetMovieDetailsUseCase
 import com.piyushhood.tmdbrowser.presentation.state.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailsViewModel(
+@HiltViewModel
+class MovieDetailsViewModel @Inject constructor(
     private val movieId : Int,
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase
 ) : ViewModel(){
