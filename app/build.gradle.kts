@@ -3,6 +3,11 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
+}
+hilt {
+    enableAggregatingTask = false
 }
 
 android {
@@ -28,6 +33,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    kapt{
+        correctErrorTypes = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -47,6 +56,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force ("com.squareup:javapoet:1.13.0")
     }
 }
 
@@ -76,5 +91,12 @@ dependencies {
     implementation(libs.retrofit.kotlinx.serialization)
     implementation(libs.okhttp.logging)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation("com.squareup:javapoet:1.13.0")
+    kapt ("com.squareup:javapoet:1.13.0")
 
 }

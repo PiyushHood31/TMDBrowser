@@ -7,8 +7,9 @@ import com.piyushhood.tmdbrowser.domain.model.Movie
 import com.piyushhood.tmdbrowser.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(
+class MoviesRepositoryImpl @Inject constructor(
     private val apiService : TmdbService
 ) : MovieRepository {
     override suspend fun getPopularMovies(
@@ -16,7 +17,6 @@ class MoviesRepositoryImpl(
         language: String
     ): List<Movie> = withContext(Dispatchers.IO) {
         val response = apiService.getPopularMovies(
-            apiKey = BuildConfig.TMDB_API_KEY,
             language = language,
             page =  page
         )
@@ -30,7 +30,6 @@ class MoviesRepositoryImpl(
         language: String
     ): Movie  = withContext(Dispatchers.IO){
         apiService.getMovieDetails(
-            apiKey = BuildConfig.TMDB_API_KEY,
             movieId = movieId,
             language = language
         ).toDomain()

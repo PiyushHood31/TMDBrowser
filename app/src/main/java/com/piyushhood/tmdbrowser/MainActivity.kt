@@ -20,7 +20,11 @@ import com.piyushhood.tmdbrowser.presentation.state.UiState
 import com.piyushhood.tmdbrowser.presentation.theme.TMDBrowserTheme
 import com.piyushhood.tmdbrowser.presentation.util.updateLocale
 import com.piyushhood.tmdbrowser.presentation.viewmodel.PreferencesViewModel
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +61,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             val windowSizeClass = calculateWindowSizeClass(this)
-            CompositionLocalProvider(
-                LocalContext provides localizeContext
-            ) {
+
                 TMDBrowserTheme(themeMode = themeMode) {
                     AdaptiveScaffold(
                         windowSizeClass = windowSizeClass,
@@ -74,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                 }
-            }
+
         }
     }
 }

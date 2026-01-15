@@ -2,22 +2,17 @@ package com.piyushhood.tmdbrowser.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.piyushhood.tmdbrowser.data.remote.api.TmdbService
-import com.piyushhood.tmdbrowser.data.repository.MoviesRepositoryImpl
-import com.piyushhood.tmdbrowser.di.ServiceLocator
-import com.piyushhood.tmdbrowser.domain.usecase.GetMovieDetailsUseCase
 import com.piyushhood.tmdbrowser.presentation.screen.HomeScreen
 import com.piyushhood.tmdbrowser.presentation.screen.MovieDetailScreen
 import com.piyushhood.tmdbrowser.presentation.screen.SearchScreen
 import com.piyushhood.tmdbrowser.presentation.screen.SettingsScreen
 import com.piyushhood.tmdbrowser.presentation.viewmodel.HomeViewModel
-import com.piyushhood.tmdbrowser.presentation.viewmodel.HomeViewModelFactory
 import com.piyushhood.tmdbrowser.presentation.viewmodel.MovieDetailsViewModel
 import com.piyushhood.tmdbrowser.presentation.viewmodel.PreferencesViewModel
 
@@ -32,9 +27,7 @@ fun AppNavGraph(
         startDestination = Screen.Home.route
     ) {
         composable(Screen.Home.route) {
-            val homeViewModel: HomeViewModel = viewModel(
-                factory = HomeViewModelFactory()
-            )
+            val homeViewModel : HomeViewModel = hiltViewModel()
             HomeScreen(
                 viewModel = homeViewModel,
                 onMovieClick = { movieId ->
@@ -48,19 +41,14 @@ fun AppNavGraph(
         }
 
         composable(
+
             Screen.MovieDetails.route,
             arguments = listOf(navArgument("movieId") { type = NavType.IntType })
         ) {backStackEntry ->
-            val movieId = backStackEntry.arguments!!.getInt("movieId")
+
+            val movieDetailsViewModel : MovieDetailsViewModel = hiltViewModel(backStackEntry)
             MovieDetailScreen(
-                viewModel = MovieDetailsViewModel(
-                    movieId = movieId,
-                    getMovieDetailsUseCase = GetMovieDetailsUseCase(
-                        repository = MoviesRepositoryImpl(
-                            apiService = ServiceLocator.tmdbService
-                        )
-                    )
-                )
+                viewModel = movieDetailsViewModel
 
             )
         }
