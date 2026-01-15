@@ -1,6 +1,7 @@
 package com.piyushhood.tmdbrowser.data.remote
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.piyushhood.tmdbrowser.data.remote.api.TmdbService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

@@ -9,6 +9,7 @@ fun provideOkHttpClient() : OkHttpClient {
     }
 
     return OkHttpClient.Builder()
+        .addInterceptor (ApiKeyInterceptor())
         .addInterceptor(logging)
         .build()
 }

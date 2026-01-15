@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10" apply false
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -21,8 +21,9 @@ android {
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            "\"${project.findProperty("TMDB_API_KEY")}\""
+            "\"${project.findProperty("TMDB_API_KEY") ?: ""}\""
         )
+        println("TMDB_API_KEY from Gradle = ${project.findProperty("TMDB_API_KEY")}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -24,4 +24,18 @@ class MoviesRepositoryImpl(
         response.results.toDomain()
 
     }
+
+    override suspend fun getMovieDetails(
+        movieId: Int,
+        language: String
+    ): Movie  = withContext(Dispatchers.IO){
+        apiService.getMovieDetails(
+            apiKey = BuildConfig.TMDB_API_KEY,
+            movieId = movieId,
+            language = language
+        ).toDomain()
+
+    }
+
+
 }

@@ -7,4 +7,9 @@ interface MovieRepository {
         page : Int = 1,
         language : String
     ) : List<Movie>
+
+    suspend fun getMovieDetails(
+        movieId : Int,
+        language : String
+    ): Movie
 }
