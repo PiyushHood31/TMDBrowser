@@ -1,5 +1,6 @@
 package com.piyushhood.tmdbrowser.presentation.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,9 +15,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
-    private val movieId : Int,
+    savedStateHandle: SavedStateHandle,
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase
 ) : ViewModel(){
+
+    private val movieId: Int =
+        savedStateHandle["movieId"]
+            ?: throw IllegalStateException("movieId not found in SavedStateHandle")
     private val _uiState = MutableStateFlow<UiState<Movie>>(UiState.Loading)
     val uiState : StateFlow<UiState<Movie>> = _uiState
 

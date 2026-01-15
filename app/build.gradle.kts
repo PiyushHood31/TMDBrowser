@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.hilt)
     kotlin("kapt")
 }
+hilt {
+    enableAggregatingTask = false
+}
 
 android {
     namespace = "com.piyushhood.tmdbrowser"
@@ -56,6 +59,12 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force ("com.squareup:javapoet:1.13.0")
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -86,5 +95,8 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    implementation("com.squareup:javapoet:1.13.0")
+    kapt ("com.squareup:javapoet:1.13.0")
 
 }
