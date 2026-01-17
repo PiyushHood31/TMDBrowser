@@ -103,4 +103,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.complier)
 
+    implementation(libs.accompanist.swiperefresh)
+
 }

@@ -17,6 +17,7 @@ serialization = "1.6.3"
 lifecycleViewmodelKtx = "2.10.0"
 hilt = "2.51.1"
 room = "2.6.1"
+accompanistSwipe = "0.34.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,7 @@ androidx-hilt-navigation-compose = {group = "androidx.hilt" , name ="hilt-naviga
 androidx-room-runtime = {group = "androidx.room" , name = "room-runtime" , version.ref ="room"}
 androidx-room-ktx = {group = "androidx.room" , name = "room-ktx" , version.ref = "room"}
 androidx-room-complier ={group = "androidx.room",name = "room-compiler",version.ref="room"}
+accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanistSwipe" }
 
 
 [plugins]

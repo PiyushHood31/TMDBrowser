@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.piyushhood.tmdbrowser.domain.model.Movie
 import com.piyushhood.tmdbrowser.domain.usecase.GetPopularMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -25,16 +26,21 @@ class HomeViewModel @Inject constructor(
                 initialValue = emptyList()
             )
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing : StateFlow<Boolean> = _isRefreshing
+
     init {
         refresh()
     }
 
-    private fun refresh(){
+     fun refresh(){
         viewModelScope.launch {
             try {
                 getPopularMoviesUseCase.refresh(language = "en")
             }catch (_: Exception){
                 //Offline- First -> ignore network errors
+            } finally {
+                _isRefreshing.value = false
             }
         }
     }
