@@ -1,5 +1,9 @@
 package com.piyushhood.tmdbrowser.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.piyushhood.tmdbrowser.BuildConfig
 import com.piyushhood.tmdbrowser.data.local.dao.MovieDao
 import com.piyushhood.tmdbrowser.data.local.entity.toDomain
@@ -29,6 +33,23 @@ class MoviesRepositoryImpl @Inject constructor(
                 entities.map { it.toDomain() }
             }
 
+    }
+
+    override fun getPopularMoviesPaged(language: String): Flow<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                movieDao.getMoviesPaging()
+            }
+        ).flow.map{pagingData ->
+            pagingData.map{entity ->
+                entity.toDomain()
+            }
+
+        }
     }
 
     override  fun getMovieDetails(
