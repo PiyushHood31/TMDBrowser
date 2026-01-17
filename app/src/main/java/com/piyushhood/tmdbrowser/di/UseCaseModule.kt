@@ -2,6 +2,7 @@ package com.piyushhood.tmdbrowser.di
 
 import com.piyushhood.tmdbrowser.domain.repository.MovieRepository
 import com.piyushhood.tmdbrowser.domain.usecase.GetMovieDetailsUseCase
+import com.piyushhood.tmdbrowser.domain.usecase.GetPopularMoviesPagedUseCase
 import com.piyushhood.tmdbrowser.domain.usecase.GetPopularMoviesUseCase
 import dagger.Module
 import dagger.Provides
@@ -26,5 +27,13 @@ object UseCaseModule {
         repository: MovieRepository
     ): GetMovieDetailsUseCase {
         return GetMovieDetailsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPopularMoviesPagedUseCase(
+        repository: MovieRepository
+    ) : GetPopularMoviesPagedUseCase {
+        return GetPopularMoviesPagedUseCase(repository)
     }
 }
