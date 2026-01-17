@@ -1,15 +1,25 @@
 package com.piyushhood.tmdbrowser.domain.repository
 
 import com.piyushhood.tmdbrowser.domain.model.Movie
+import com.piyushhood.tmdbrowser.domain.model.MovieId
+import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-    suspend fun getPopularMovies(
+    fun getPopularMovies(
         page : Int = 1,
         language : String
-    ) : List<Movie>
+    ) : Flow<List<Movie>>
 
-    suspend fun getMovieDetails(
-        movieId : Int,
-        language : String
-    ): Movie
+    suspend fun refreshPopularMovies(
+        language: String
+    )
+
+    fun getMovieDetails(
+        movieId : MovieId,
+    ): Flow<Movie?>
+
+    suspend fun refreshMovieDetails(
+        movieId: MovieId,
+        language: String
+    )
 }

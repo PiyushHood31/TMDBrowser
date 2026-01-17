@@ -99,4 +99,10 @@ dependencies {
     implementation("com.squareup:javapoet:1.13.0")
     kapt ("com.squareup:javapoet:1.13.0")
 
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.complier)
+
+    implementation(libs.accompanist.swiperefresh)
+
 }

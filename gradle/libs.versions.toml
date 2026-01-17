@@ -16,6 +16,8 @@ okhttp = "4.12.0"
 serialization = "1.6.3"
 lifecycleViewmodelKtx = "2.10.0"
 hilt = "2.51.1"
+room = "2.6.1"
+accompanistSwipe = "0.34.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +46,10 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 hilt-android ={group = "com.google.dagger" , name = "hilt-android",version.ref = "hilt"}
 hilt-compiler = {group = "com.google.dagger" , name = "hilt-compiler" , version.ref = "hilt"}
 androidx-hilt-navigation-compose = {group = "androidx.hilt" , name ="hilt-navigation-compose",version = "1.2.0"}
+androidx-room-runtime = {group = "androidx.room" , name = "room-runtime" , version.ref ="room"}
+androidx-room-ktx = {group = "androidx.room" , name = "room-ktx" , version.ref = "room"}
+androidx-room-complier ={group = "androidx.room",name = "room-compiler",version.ref="room"}
+accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanistSwipe" }
 
 
 [plugins]

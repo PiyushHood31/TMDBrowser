@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.piyushhood.tmdbrowser.domain.model.Movie
+import com.piyushhood.tmdbrowser.domain.model.MovieId
 import com.piyushhood.tmdbrowser.domain.usecase.GetMovieDetailsUseCase
 import com.piyushhood.tmdbrowser.presentation.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,28 +22,31 @@ class MovieDetailsViewModel @Inject constructor(
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase
 ) : ViewModel(){
 
-    private val movieId: Int =
-        savedStateHandle["movieId"]
-            ?: throw IllegalStateException("movieId not found in SavedStateHandle")
-    private val _uiState = MutableStateFlow<UiState<Movie>>(UiState.Loading)
-    val uiState : StateFlow<UiState<Movie>> = _uiState
+    private val movieId = MovieId(
+        checkNotNull(savedStateHandle["movieId"])
+    )
 
-    init{
-        loadMovie()
+    val movie : StateFlow<Movie?> =
+        getMovieDetailsUseCase(movieId)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = null
+            )
+
+    init {
+        refresh()
     }
 
-    private fun loadMovie(){
+    private fun refresh(){
         viewModelScope.launch {
             try{
-                val movie = getMovieDetailsUseCase(
+                getMovieDetailsUseCase.refresh(
                     movieId = movieId,
                     language = "en"
                 )
-                _uiState.value = UiState.Success(movie)
-            }catch( e : Exception){
-                _uiState.value = UiState.Error(
-                    e.localizedMessage ?: "Failed to load movie"
-                )
+            } catch (_ : Exception){
+                //Offline-first -> cached data still shown
             }
         }
     }

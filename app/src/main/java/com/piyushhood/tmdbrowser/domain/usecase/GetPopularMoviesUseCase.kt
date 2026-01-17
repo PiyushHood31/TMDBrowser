@@ -2,17 +2,20 @@ package com.piyushhood.tmdbrowser.domain.usecase
 
 import com.piyushhood.tmdbrowser.domain.model.Movie
 import com.piyushhood.tmdbrowser.domain.repository.MovieRepository
+import kotlinx.coroutines.flow.Flow
 
 class GetPopularMoviesUseCase(
     private val repository: MovieRepository
 ){
-    suspend operator fun invoke(
-        page : Int,
+    operator fun invoke(
         language : String
-    ) : List<Movie> {
+    ) : Flow<List<Movie>> {
         return repository.getPopularMovies(
-            page = page,
             language = language
         )
+    }
+
+    suspend fun refresh(language : String){
+        repository.refreshPopularMovies(language)
     }
 }
