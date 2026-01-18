@@ -102,10 +102,12 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.complier)
+    implementation(libs.androidx.room.paging)
 
     implementation(libs.accompanist.swiperefresh)
 
     implementation(libs.androidx.paging.runtime)
     implementation(libs.androidx.paging.compose)
+
 
 }

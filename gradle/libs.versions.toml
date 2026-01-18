@@ -50,6 +50,7 @@ androidx-hilt-navigation-compose = {group = "androidx.hilt" , name ="hilt-naviga
 androidx-room-runtime = {group = "androidx.room" , name = "room-runtime" , version.ref ="room"}
 androidx-room-ktx = {group = "androidx.room" , name = "room-ktx" , version.ref = "room"}
 androidx-room-complier ={group = "androidx.room",name = "room-compiler",version.ref="room"}
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanistSwipe" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
